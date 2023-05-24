@@ -1,5 +1,5 @@
 push 1
-pint 222
+pint 
 push 2
 pint
 push 3

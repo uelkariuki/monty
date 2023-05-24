@@ -132,7 +132,6 @@ void pall_func(stack_t **stack)
 void pint(stack_t **stack)
 {
 	int line_number = 0;
-	char *args;
 
 	if (*stack == NULL)
 	{
@@ -140,13 +139,6 @@ void pint(stack_t **stack)
 		exit(EXIT_FAILURE);
 	}
 
-	args = strtok(NULL, " \t\n");
-	if (args != NULL)
-	{
-		fprintf(stderr, "no arguments allowed\n");
-		exit(EXIT_FAILURE);
-	}
-	
 	printf("%d\n", (*stack)->n);
 
 
