@@ -149,6 +149,10 @@ void pint(stack_t **stack)
 
 }
 
+/**
+ * nop- The opcode nop doesn’t do anything.
+ */
+
 void nop(stack_t **stack __attribute__((unused)))
 {
 
