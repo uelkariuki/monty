@@ -3,13 +3,20 @@
 
 void push_func(stack_t **stack, int elem_value);
 void pall_func(stack_t **stack);
+/**
+ * main- main function
+ * @argc: number of command line arguments
+ * @argv: an array containing the program command line arguments
+ * Return: 0
+ */
 
 int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
 	FILE *file_pointer;
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1;
-	char *opcode, *args,*end_ln, elem_value;
+	char *opcode, *args, *end_ln;
+	long elem_value;
 	stack_t *stack = NULL, *temp;
 
 	if (argc != 2)
@@ -37,7 +44,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-				elem_value = strtol(args, &end_ln,10);
+				elem_value = strtol(args, &end_ln, 10);
 				if (*end_ln != '\0')
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
@@ -65,8 +72,13 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		stack = stack->next;
 		free(temp);
 	}
-	return(0);
+	return (0);
 }
+/**
+ * push_func - function to implement push opcode
+ * @stack: pointer to a pointer to a stack
+ * @elem_value: the value of the element in the stack
+ */
 
 void push_func(stack_t **stack, int elem_value)
 {
@@ -90,6 +102,11 @@ void push_func(stack_t **stack, int elem_value)
 	}
 	*stack = new_stack_elem;
 }
+
+/**
+ * pall_func- function to implement the pall opcodes
+ * @stack: pointer to a pointer to a stack
+ */
 
 void pall_func(stack_t **stack)
 {
