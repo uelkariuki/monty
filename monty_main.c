@@ -10,7 +10,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1, elem_value;
 	char *opcode, *args;
-	stack_t *stack = NULL;
+	stack_t *stack = NULL, *temp;
 
 	if (argc != 2)
 	{
@@ -59,6 +59,12 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		line_number++;
 	}
 	fclose(file_pointer);
+	while (stack != NULL)
+	{
+		temp = stack;
+		stack = stack->next;
+		free(temp);
+	}
 	return(0);
 }
 
@@ -88,7 +94,7 @@ void push_func(stack_t **stack, int elem_value)
 void pall_func(stack_t **stack)
 {
 	 stack_t *temp_current;
-	if (stack == NULL)
+	if (*stack == NULL)
 	{
 		return;
 
