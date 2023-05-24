@@ -36,7 +36,9 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 			else if (strcmp(opcode, "pall") == 0)
 				pall_func(&stack);
 			else if (strcmp(opcode, "pint") == 0)
+			{
 				pint(&stack);
+			}
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
