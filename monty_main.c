@@ -1,8 +1,6 @@
 #include "monty.h"
 #define MAX_LEN_INSTRUCTION 200
 
-void push_func(stack_t **stack, int elem_value);
-void pall_func(stack_t **stack);
 /**
  * main- main function
  * @argc: number of command line arguments
@@ -12,11 +10,10 @@ void pall_func(stack_t **stack);
 
 int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
-	FILE *file_pointer;
+	FILE *file_pointer = fopen(argv[1], "r");
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1;
-	char *opcode, *args, *end_ln;
-	long elem_value;
+	char *opcode;
 	stack_t *stack = NULL, *temp;
 
 	if (argc != 2)
@@ -24,38 +21,22 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file_pointer = fopen(argv[1], "r");
 	if (file_pointer == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-
 	while (fgets(the_instruction, MAX_LEN_INSTRUCTION, file_pointer) != NULL)
 	{
 		opcode = strtok(the_instruction, " \t\n");
-		args = strtok(NULL, " \t\n");
 		if (opcode != NULL)
 		{
 			if (strcmp(opcode, "push") == 0)
-			{
-				if (args == NULL)
-				{
-					fprintf(stderr, "L%d: usage: push integer\n", line_number);
-					exit(EXIT_FAILURE);
-				}
-				elem_value = strtol(args, &end_ln, 10);
-				if (*end_ln != '\0')
-				{
-					fprintf(stderr, "L%d: usage: push integer\n", line_number);
-					exit(EXIT_FAILURE);
-				}
-				push_func(&stack, (int)elem_value);
-			}
+				push_func(&stack, line_number);
 			else if (strcmp(opcode, "pall") == 0)
-			{
 				pall_func(&stack);
-			}
+			else if (strcmp(opcode, "pint") == 0)
+				pint(&stack);
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
@@ -75,14 +56,29 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	return (0);
 }
 /**
- * push_func - function to implement push opcode
+ * push_func - opcode function that pushes an element to the stack.
  * @stack: pointer to a pointer to a stack
- * @elem_value: the value of the element in the stack
+ * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int elem_value)
+void push_func(stack_t **stack, int line_number)
 {
 	stack_t *new_stack_elem;
+	char *end_ln, *args;
+	long elem_value;
+
+	args = strtok(NULL, " \t\n");
+	if (args == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	elem_value = strtol(args, &end_ln, 10);
+	if (*end_ln != '\0')
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
 	new_stack_elem = (stack_t *)malloc(sizeof(stack_t));
 
@@ -104,7 +100,8 @@ void push_func(stack_t **stack, int elem_value)
 }
 
 /**
- * pall_func- function to implement the pall opcodes
+ * pall_func- opcode function that prints all the values on the stack,
+ * starting from the top of the stack.
  * @stack: pointer to a pointer to a stack
  */
 
@@ -123,4 +120,26 @@ void pall_func(stack_t **stack)
 		printf("%d\n", temp_current->n);
 		temp_current = temp_current->next;
 	}
+}
+
+/**
+ * pint- The opcode pint prints the value at the top of the
+ * stack, followed by a new line.
+ * @stack: pointer to a pointer to the stack
+ */
+
+void pint(stack_t **stack)
+{
+	int line_number = 0;
+
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	printf("%d\n", (*stack)->n);
+
+
+
 }
