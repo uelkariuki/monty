@@ -107,7 +107,8 @@ void push_func(stack_t **stack, int line_number)
 
 void pall_func(stack_t **stack)
 {
-	 stack_t *temp_current;
+	stack_t *temp_current;
+
 	if (*stack == NULL)
 	{
 		return;
@@ -131,6 +132,7 @@ void pall_func(stack_t **stack)
 void pint(stack_t **stack)
 {
 	int line_number = 0;
+	char *args;
 
 	if (*stack == NULL)
 	{
@@ -138,8 +140,14 @@ void pint(stack_t **stack)
 		exit(EXIT_FAILURE);
 	}
 
-	printf("%d", (*stack)->n);
-	printf("\n");
+	args = strtok(NULL, " \t\n");
+	if (args != NULL)
+	{
+		fprintf(stderr, "no arguments allowed\n");
+		exit(EXIT_FAILURE);
+	}
+	
+	printf("%d\n", (*stack)->n);
 
 
 
