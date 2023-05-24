@@ -34,11 +34,16 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 			{
 				if (args == NULL)
 				{
-					fprintf(stderr, "L<%d>: usage: push integer", line_number);
+					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
 				elem_value = atoi(args);
-				push_func(&stack,elem_value);
+				if (elem_value == 0 && strcmp(args, "0") != 0)
+				{
+					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
+				push_func(&stack, elem_value);
 			}
 			else if (strcmp(opcode, "pall") == 0)
 			{
@@ -46,7 +51,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 			}
 			else
 			{
-				fprintf(stderr, "L<%d>: unknown instruction <%s>",
+				fprintf(stderr, "L%d: unknown instruction %s\n",
 						line_number, opcode);
 				exit(EXIT_FAILURE);
 			}
@@ -60,8 +65,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 void push_func(stack_t **stack, int elem_value)
 {
 	stack_t *new_stack_elem;
-	/*char *opcode,*args;*/
-	/*char the_instruction[MAX_LEN_INSTRUCTION];*/
+
 	new_stack_elem = (stack_t *)malloc(sizeof(stack_t));
 
 	/* failed memory allocation*/
@@ -91,7 +95,6 @@ void pall_func(stack_t **stack)
 	}
 
 	temp_current = *stack;
-
 	while (temp_current != NULL)
 	{
 		printf("%d\n", temp_current->n);
