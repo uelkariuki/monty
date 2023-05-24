@@ -151,5 +151,5 @@ void pint(stack_t **stack)
 
 void nop(stack_t **stack __attribute__((unused)))
 {
-	exit(EXIT_SUCCESS);
+	exit(EXIT_FAILURE);
 }
