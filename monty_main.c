@@ -8,8 +8,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
 	FILE *file_pointer;
 	char the_instruction[MAX_LEN_INSTRUCTION];
-	int line_number = 1, elem_value;
-	char *opcode, *args;
+	int line_number = 1;
+	char *opcode, *args,*end_ln, elem_value;
 	stack_t *stack = NULL, *temp;
 
 	if (argc != 2)
@@ -37,13 +37,13 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-				elem_value = atoi(args);
-				if (elem_value == 0 && strcmp(args, "0") != 0)
+				elem_value = strtol(args, &end_ln,10);
+				if (*end_ln != '\0')
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-				push_func(&stack, elem_value);
+				push_func(&stack, (int)elem_value);
 			}
 			else if (strcmp(opcode, "pall") == 0)
 			{
