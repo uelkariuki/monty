@@ -28,14 +28,12 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	/*stack = NULL;*/
-
 	while (fgets(the_instruction, MAX_LEN_INSTRUCTION, file_pointer) != NULL)
 	{
 		opcode = strtok(the_instruction, " \t\n");
-		args = strtok(NULL, " \t\n");
 		if (opcode != NULL)
 		{
+			args = strtok(NULL, " \t\n");
 			if (strcmp(opcode, "push") == 0)
 			{
 				if (args == NULL)
@@ -61,6 +59,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 				pop(&stack, line_number);
 			else if (strcmp(opcode, "swap") == 0)
 				swap(&stack, line_number);
+			else if (strcmp(opcode, "add") == 0)
+				add(&stack, line_number);
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
@@ -138,7 +138,7 @@ void pall_func(stack_t **stack)
  * @stack: pointer to a pointer to the stack
  */
 
-void pint(stack_t **stack, int line_number)
+void pint(stack_t **stack, unsigned int line_number)
 {
 
 	if (*stack == NULL)

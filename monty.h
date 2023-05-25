@@ -41,12 +41,13 @@ typedef struct instruction_s
 
 extern stack_t *stack;
 
-void push_func(stack_t **stack, int line_number);
+void push_func(stack_t **stack, int elem_value);
 void pall_func(stack_t **stack);
-void pint(stack_t **stack, int line_number);
+void pint(stack_t **stack, unsigned int line_number);
 void nop();
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
 
 
 
