@@ -18,10 +18,6 @@ void sub(stack_t **stack, unsigned int line_number)
                 }
 
                 top_of_stck->next->n = top_of_stck->next->n - top_of_stck->n;
-
-                pop(stack, line_number);
-
-
-
-
+                
+		pop(stack, line_number);
 }
