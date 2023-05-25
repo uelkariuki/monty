@@ -36,7 +36,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		if (opcode != NULL)
 		{
 			if (strcmp(opcode, "push") == 0)
-				push_func(&stack);
+				push_func(&stack, line_number);
 			else if (strcmp(opcode, "pall") == 0)
 				pall_func(&stack);
 			else if (strcmp(opcode, "pint") == 0)
@@ -67,12 +67,11 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack)
+void push_func(stack_t **stack, int line_number)
 {
 	stack_t *new_stack_elem;
 	char *end_ln, *args;
 	long elem_value;
-	int line_number;
 
 	args = strtok(NULL, " \t\n");
 	line_number = atoi(args);
