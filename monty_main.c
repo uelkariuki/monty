@@ -32,6 +32,10 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	{
 		opcode = strtok(the_instruction, " \t\n");
 		args = strtok(NULL, " \t\n");
+		if  (opcode[0] == '#')
+		{
+			continue;
+		}
 		if (opcode != NULL)
 		{
 			if (strcmp(opcode, "push") == 0)
