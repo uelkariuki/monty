@@ -3,7 +3,7 @@
 /**
  * sub- The opcode sub subtracts the top element of the stack
  * from the second top element of the stack.
- * @stack: the pointer to the pointer of top of the stacki
+ * @stack: the pointer to the pointer of top of the stack
  * @line_number: the line number of opcode in the file
  */
 
