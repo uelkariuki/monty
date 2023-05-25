@@ -61,6 +61,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 				swap(&stack, line_number);
 			else if (strcmp(opcode, "add") == 0)
 				add(&stack, line_number);
+			else if (strcmp(opcode, "sub") == 0)
+				sub(&stack, line_number);
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
