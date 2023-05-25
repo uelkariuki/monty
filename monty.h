@@ -41,11 +41,11 @@ typedef struct instruction_s
 
 extern stack_t *stack;
 
-void push_func(stack_t **stack, int line_number);
+void push_func(stack_t **stack);
 void pall_func(stack_t **stack);
 void pint(stack_t **stack);
 void nop(stack_t **stack __attribute__((unused)));
-void opcodes_handle(char *opcode, int line_number);
+void opcodes_handle(char *opcode);
 
 
 

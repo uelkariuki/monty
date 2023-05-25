@@ -6,11 +6,13 @@
  * @line_number: the line numeber in a file
  */
 
-void opcodes_handle(char *opcode, int line_number)
+void opcodes_handle(char *opcode)
 {
 
+	int line_number = 0;
+
 	if (strcmp(opcode, "push") == 0)
-		push_func(&stack, line_number);
+		push_func(&stack);
 	else if (strcmp(opcode, "pall") == 0)
 		pall_func(&stack);
 	else if (strcmp(opcode, "pint") == 0)

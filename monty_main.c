@@ -35,7 +35,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		opcode = strtok(the_instruction, " \t\n");
 		if (opcode != NULL)
 		{
-			opcodes_handle(opcode, line_number);
+			opcodes_handle(opcode);
 		}
 		line_number++;
 	}
@@ -54,11 +54,12 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int line_number)
+void push_func(stack_t **stack)
 {
 	stack_t *new_stack_elem;
 	char *end_ln, *args;
 	long elem_value;
+	int line_number = 0;
 
 	args = strtok(NULL, " \t\n");
 	if (args == NULL)
