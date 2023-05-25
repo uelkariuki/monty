@@ -31,9 +31,9 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	while (fgets(the_instruction, MAX_LEN_INSTRUCTION, file_pointer) != NULL)
 	{
 		opcode = strtok(the_instruction, " \t\n");
+		args = strtok(NULL, " \t\n");
 		if (opcode != NULL)
 		{
-			args = strtok(NULL, " \t\n");
 			if (strcmp(opcode, "push") == 0)
 			{
 				if (args == NULL)
