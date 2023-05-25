@@ -19,7 +19,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 				fprintf(stderr, "L%d: can't pstr, value out of range\n", line_number);
 				exit(EXIT_FAILURE);
 			}
-			printf("%c\n", top_of_stck->n);
+			printf("%c", top_of_stck->n);
 			top_of_stck = top_of_stck->next;
 		}
 		printf("\n");
