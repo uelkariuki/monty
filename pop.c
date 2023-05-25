@@ -9,17 +9,10 @@
 void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top_node_stack;
-	char *args;
 
 	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	args = strtok(NULL, " \t\n");
-	if (args != NULL)
-	{
-		fprintf(stderr, "L%d: usage: pop\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	top_node_stack = *stack;
