@@ -16,7 +16,7 @@ void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 		{
 			if (top_of_stck->n < 0 || top_of_stck->n > 127)
 			{
-				fprintf(stderr, "L%d: can't pchar, value out of range", line_number);
+				fprintf(stderr, "L%d: can't pstr, value out of range\n", line_number);
 				exit(EXIT_FAILURE);
 
 			}
