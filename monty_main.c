@@ -35,7 +35,20 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		opcode = strtok(the_instruction, " \t\n");
 		if (opcode != NULL)
 		{
-			opcodes_handle(opcode);
+			if (strcmp(opcode, "push") == 0)
+				push_func(&stack);
+			else if (strcmp(opcode, "pall") == 0)
+				pall_func(&stack);
+			else if (strcmp(opcode, "pint") == 0)
+				pint(&stack, line_number);
+			else if (strcmp(opcode, "nop") == 0)
+				nop(&stack);
+			else
+			{
+				fprintf(stderr, "L%d: unknown instruction %s\n",
+						line_number, opcode);
+				exit(EXIT_FAILURE);
+			}
 		}
 		line_number++;
 	}
