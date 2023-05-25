@@ -16,13 +16,13 @@ void pop(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	top_node_stack = *stack;
-	*stack = top_node_stack->next;
 
-	if (*stack != NULL)
+	if ( top_node_stack-> next != NULL)
 	{
 		/* 7 <-> 6 <-> 5 <-> 3 */
 		/*top_node (7) next is (6), prev of (6) is (7) which*/
 		/* is set to NULL thus removing it*/
-		(*stack)->prev = NULL;
+		top_node_stack-> next->prev = NULL;
 	}
+	*stack = top_node_stack->next;
 }

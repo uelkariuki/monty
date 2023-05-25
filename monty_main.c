@@ -28,7 +28,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	stack = NULL;
+	/*stack = NULL;*/
 
 	while (fgets(the_instruction, MAX_LEN_INSTRUCTION, file_pointer) != NULL)
 	{
@@ -58,7 +58,14 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 			else if (strcmp(opcode, "nop") == 0)
 				nop();
 			else if (strcmp(opcode, "pop") == 0)
+			{
+				if (argc > 2)
+				{
+					fprintf(stderr, "L%d: usage: args not allowed\n", line_number);
+					exit(EXIT_FAILURE);
+				}
 				pop(&stack, line_number);
+			}
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
