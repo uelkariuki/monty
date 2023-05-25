@@ -32,4 +32,5 @@ void pop(stack_t **stack, unsigned int line_number)
 		top_node_stack->next->prev = NULL;
 	}
 	*stack = top_node_stack->next;
+	free(top_node_stack);
 }
