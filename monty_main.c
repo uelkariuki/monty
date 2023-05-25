@@ -76,7 +76,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 			else if (strcmp(opcode, "pchar") == 0)
 				pchar(&stack, line_number);
 			else if (strcmp(opcode, "pstr") == 0)
-				pstr(&stack, line_number);
+				pstr(&stack);
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
