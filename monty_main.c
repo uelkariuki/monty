@@ -59,10 +59,12 @@ void push_func(stack_t **stack)
 	stack_t *new_stack_elem;
 	char *end_ln, *args;
 	long elem_value;
-	int line_number = line_number;
+	int line_number;
 
 	args = strtok(NULL, " \t\n");
-	if (args == NULL)
+	line_number = atoi(args);
+
+	if (args == NULL || line_number == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -123,9 +125,8 @@ void pall_func(stack_t **stack)
  * @stack: pointer to a pointer to the stack
  */
 
-void pint(stack_t **stack)
+void pint(stack_t **stack, int line_number)
 {
-	int line_number = 0;
 
 	if (*stack == NULL)
 	{
