@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-
+#define MAX_LEN_INSTRUCTION 200
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -44,7 +44,8 @@ extern stack_t *stack;
 void push_func(stack_t **stack, int line_number);
 void pall_func(stack_t **stack);
 void pint(stack_t **stack, int line_number);
-void nop(stack_t **stack __attribute__((unused)));
+void nop();
+void pop(stack_t **stack, unsigned int line_number);
 
 
 

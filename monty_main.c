@@ -1,8 +1,7 @@
 #include "monty.h"
 
-#define MAX_LEN_INSTRUCTION 200
-
 stack_t *stack;
+
 /**
  * main- main function
  * @argc: number of command line arguments
@@ -57,7 +56,9 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 			else if (strcmp(opcode, "pint") == 0)
 				pint(&stack, line_number);
 			else if (strcmp(opcode, "nop") == 0)
-				nop(&stack);
+				nop();
+			else if (strcmp(opcode, "pop") == 0)
+				pop(&stack, line_number);
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
@@ -157,7 +158,7 @@ void pint(stack_t **stack, int line_number)
  * @stack: pointer to a pointer to the stack
  */
 
-void nop(stack_t **stack __attribute__((unused)))
+void nop(void)
 {
 
 }
