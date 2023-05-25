@@ -16,7 +16,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1;
 	char *opcode;
-	stack_t *stack, *temp;
+	stack_t *temp;
 
 	if (argc != 2)
 	{
@@ -59,7 +59,7 @@ void push_func(stack_t **stack)
 	stack_t *new_stack_elem;
 	char *end_ln, *args;
 	long elem_value;
-	int line_number = 0;
+	int line_number = line_number;
 
 	args = strtok(NULL, " \t\n");
 	if (args == NULL)
