@@ -14,7 +14,7 @@ void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 
 		while (top_of_stck != NULL && top_of_stck->n != 0 )
 		{
-			if (top_of_stck->n > 0 && top_of_stck->n < 127)
+			if (top_of_stck->n > 0 || top_of_stck->n < 127)
 			{
 				printf("%c", top_of_stck->n);
 				top_of_stck = top_of_stck->next;
