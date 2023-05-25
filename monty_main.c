@@ -15,8 +15,9 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	FILE *file_pointer = fopen(argv[1], "r");
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1;
-	char *opcode;
+	char *opcode,*args, *end_ln;
 	stack_t *temp;
+	long elem_value;
 
 	if (argc != 2)
 	{
@@ -33,10 +34,24 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	while (fgets(the_instruction, MAX_LEN_INSTRUCTION, file_pointer) != NULL)
 	{
 		opcode = strtok(the_instruction, " \t\n");
+		args = strtok(NULL, " \t\n");
 		if (opcode != NULL)
 		{
 			if (strcmp(opcode, "push") == 0)
-				push_func(&stack, line_number);
+			{
+				if (args == NULL)
+				{
+					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
+				elem_value = strtol(args, &end_ln, 10);
+				if (*end_ln != '\0')
+				{
+					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
+				push_func(&stack, (int)elem_value);
+			}
 			else if (strcmp(opcode, "pall") == 0)
 				pall_func(&stack);
 			else if (strcmp(opcode, "pint") == 0)
@@ -67,26 +82,9 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int line_number)
+void push_func(stack_t **stack, int elem_value)
 {
 	stack_t *new_stack_elem;
-	char *end_ln, *args;
-	long elem_value;
-
-	args = strtok(NULL, " \t\n");
-	line_number = atoi(args);
-
-	if (args == NULL || line_number == 0)
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	elem_value = strtol(args, &end_ln, 10);
-	if (*end_ln != '\0')
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
 
 	new_stack_elem = (stack_t *)malloc(sizeof(stack_t));
 
