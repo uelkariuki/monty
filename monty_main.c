@@ -73,6 +73,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 				mul(&stack, line_number);
 			else if (strcmp(opcode, "mod") == 0)
 				mod(&stack, line_number);
+			else if (strcmp(opcode, "pchar") == 0)
+				pchar(&stack, line_number);
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
