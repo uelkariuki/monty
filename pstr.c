@@ -7,7 +7,7 @@
  * @line_number: the line number of opcode in the file
  */
 
-void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
+void pstr(stack_t **stack, unsigned int line_number)
 {
                 stack_t *top_of_stck = *stack;
 		
