@@ -1,6 +1,8 @@
 #include "monty.h"
+
 #define MAX_LEN_INSTRUCTION 200
 
+stack_t *stack;
 /**
  * main- main function
  * @argc: number of command line arguments
@@ -14,7 +16,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1;
 	char *opcode;
-	stack_t *stack = NULL, *temp;
+	stack_t *stack, *temp;
 
 	if (argc != 2)
 	{
@@ -26,25 +28,14 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
+	stack = NULL;
+
 	while (fgets(the_instruction, MAX_LEN_INSTRUCTION, file_pointer) != NULL)
 	{
 		opcode = strtok(the_instruction, " \t\n");
 		if (opcode != NULL)
 		{
-			if (strcmp(opcode, "push") == 0)
-				push_func(&stack, line_number);
-			else if (strcmp(opcode, "pall") == 0)
-				pall_func(&stack);
-			else if (strcmp(opcode, "pint") == 0)
-				pint(&stack);
-			else if (strcmp(opcode, "nop") == 0)
-				nop(&stack);
-			else
-			{
-				fprintf(stderr, "L%d: unknown instruction %s\n",
-						line_number, opcode);
-				exit(EXIT_FAILURE);
-			}
+			opcodes_handle(opcode, line_number);
 		}
 		line_number++;
 	}
@@ -151,6 +142,7 @@ void pint(stack_t **stack)
 
 /**
  * nop- The opcode nop doesn’t do anything.
+ * @stack: pointer to a pointer to the stack
  */
 
 void nop(stack_t **stack __attribute__((unused)))
