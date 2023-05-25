@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+
 #define MAX_LEN_INSTRUCTION 200
 
 /**
@@ -53,8 +54,7 @@ void div_func(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
 void mod(stack_t **stack, unsigned int line_number);
 void pchar(stack_t **stack, unsigned int line_number);
-void pstr(stack_t **stack, unsigned int line_number);
-
-
+void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)));
+#include <ctype.h>
 
 #endif /* MONTY_H */
