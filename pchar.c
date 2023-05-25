@@ -13,7 +13,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 
                 if (top_of_stck == NULL)
                 {
-                        fprintf(stderr, "L%d:can't pchar, stack empty\n", line_number);
+                        fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
                         exit(EXIT_FAILURE);
                 }
                 if (top_of_stck->n < 0 || top_of_stck->n > 127)
