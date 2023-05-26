@@ -12,13 +12,15 @@ void rotl(stack_t **stack)
 	stack_t *top_elem = *stack, *temp_elem;
 	stack_t *second_elem = top_elem->next;
 
-	/*while (top_elem != NULL && top_elem->next != NULL)*/
-	temp_elem = second_elem;
-	while (temp_elem->next != NULL)
+	while (top_elem != NULL && top_elem->next != NULL)
 	{
-		temp_elem = temp_elem->next;
+		temp_elem = second_elem;
+		while (temp_elem->next != NULL)
+		{
+			temp_elem = temp_elem->next;
+		}
+		temp_elem->next = top_elem;
+		*stack = second_elem;
+		top_elem->next = NULL;
 	}
-	temp_elem->next = top_elem;
-	*stack = second_elem;
-	top_elem->next = NULL;
 }
