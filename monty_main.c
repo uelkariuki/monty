@@ -79,6 +79,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 				pstr(&stack);
 			else if (strcmp(opcode, "rotl") == 0)
 				rotl(&stack);
+			else if (strcmp(opcode, "rotr") == 0)
+				rotr(&stack);
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
