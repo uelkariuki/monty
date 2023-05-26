@@ -25,4 +25,5 @@ void rotl(stack_t **stack)
 		top_elem->next = NULL;
 
 	}
+	return;
 }
