@@ -1,5 +1,8 @@
 #include "monty.h"
 
+#define STACK_FORMAT 0
+#define QUEUE_FORMAT 1
+
 stack_t *stack;
 
 /**
@@ -13,7 +16,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
 	FILE *file_pointer = fopen(argv[1], "r");
 	char the_instruction[MAX_LEN_INSTRUCTION];
-	int line_number = 1;
+	int line_number = 1, format = STACK_FORMAT;
 	char *opcode,*args, *end_ln;
 	stack_t *temp;
 	long elem_value;
@@ -51,7 +54,17 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-				push_func(&stack, (int)elem_value);
+				push_func(&stack, (int)elem_value, format);
+			}
+
+			else if (strcmp(opcode, "stack") == 0)
+			{
+				format = STACK_FORMAT;
+
+			}
+			else if (strcmp(opcode, "queue") == 0)
+			{
+				format = QUEUE_FORMAT;
 			}
 			else if (strcmp(opcode, "pall") == 0)
 				pall_func(&stack);
@@ -81,6 +94,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 				rotl(&stack);
 			else if (strcmp(opcode, "rotr") == 0)
 				rotr(&stack);
+
 			else
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n",
@@ -105,9 +119,9 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int elem_value)
+void push_func(stack_t **stack, int elem_value, int format)
 {
-	stack_t *new_stack_elem;
+	stack_t *new_stack_elem, *rear_elem;
 
 	new_stack_elem = (stack_t *)malloc(sizeof(stack_t));
 
@@ -119,13 +133,35 @@ void push_func(stack_t **stack, int elem_value)
 	}
 	new_stack_elem->n = elem_value;
 	new_stack_elem->prev = NULL;
-	new_stack_elem->next = *stack;
+	new_stack_elem->next = NULL;
 
-	if (*stack != NULL)
+
+	if (format == STACK_FORMAT)
 	{
-		(*stack)->prev = new_stack_elem;
+		if (*stack != NULL)
+		{
+			 new_stack_elem->next = *stack;
+			 (*stack)->prev = new_stack_elem;
+		}
+		*stack = new_stack_elem;
 	}
-	*stack = new_stack_elem;
+	else if (format == QUEUE_FORMAT)
+	{
+		if (*stack == NULL)
+		{
+			*stack = new_stack_elem;
+		}
+		else
+		{
+			rear_elem = *stack;
+			while (rear_elem->next != NULL)
+			{
+				rear_elem = rear_elem->next; 
+			}
+			rear_elem->next = new_stack_elem;
+			new_stack_elem->prev = rear_elem;
+		}
+	}
 }
 
 /**
