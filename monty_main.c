@@ -18,6 +18,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1, format = STACK_FORMAT;
 	char *opcode,*args, *end_ln;
+	stack_t *temp;
 	long elem_value;
 
 	if (argc != 2)
@@ -106,7 +107,12 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		line_number++;
 	}
 	fclose(file_pointer);
-	free_the_stack(&stack);
+	while (stack!= NULL)
+	{
+		temp = stack;
+		stack = stack->next;
+		free(temp);
+	}
 	return (0);
 }
 /**
