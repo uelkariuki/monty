@@ -18,7 +18,6 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1, format = STACK_FORMAT;
 	char *opcode,*args, *end_ln;
-	stack_t *temp;
 	long elem_value;
 
 	if (argc != 2)
@@ -48,15 +47,17 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 				if (args == NULL)
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					free_the_stack(&stack);
 					exit(EXIT_FAILURE);
 				}
 				elem_value = strtol(args, &end_ln, 10);
 				if (*end_ln != '\0')
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					free_the_stack(&stack);
 					exit(EXIT_FAILURE);
 				}
-				push_func(&stack, (int)elem_value, format, argc, line_number);
+				push_func(&stack, (int)elem_value, format, line_number);
 			}
 
 			else if (strcmp(opcode, "stack") == 0)
@@ -106,13 +107,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		}
 		line_number++;
 	}
+	free_the_stack(&stack);
 	fclose(file_pointer);
-	while (stack != NULL)
-	{
-		temp = stack;
-		stack = stack->next;
-		free(temp);
-	}
 	return (0);
 }
 /**
@@ -121,15 +117,17 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int elem_value, int format, int argc, int line_number)
+void push_func(stack_t **stack, int elem_value, int format, int line_number)
 {
 	stack_t *new_stack_elem, *rear_elem;
 
-	if (argc <= 0)
+	if (elem_value <= 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free_the_stack(stack);
 		exit(EXIT_FAILURE);
 	}
+
 
 	new_stack_elem = (stack_t *)malloc(sizeof(stack_t));
 
@@ -137,6 +135,7 @@ void push_func(stack_t **stack, int elem_value, int format, int argc, int line_n
 	if (new_stack_elem == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		free_the_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 	new_stack_elem->n = elem_value;

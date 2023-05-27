@@ -43,7 +43,7 @@ typedef struct instruction_s
 
 extern stack_t *stack;
 
-void push_func(stack_t **stack, int elem_value, int format, int argc, int line_number);
+void push_func(stack_t **stack, int elem_value, int format, int line_number);
 void pall_func(stack_t **stack);
 void pint(stack_t **stack, unsigned int line_number);
 void nop();
@@ -58,5 +58,6 @@ void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack);
 void rotl(stack_t **stack);
 void rotr(stack_t **stack);
+void free_the_stack(stack_t **stack);
 
 #endif /* MONTY_H */
