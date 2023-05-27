@@ -8,7 +8,12 @@
 
 void rotr(stack_t **stack)
 {
-        stack_t *top_elem = *stack, *bottom_elem = *stack; 
+        stack_t *top_elem, *bottom_elem;
+
+	if (*stack == NULL)
+		return;
+
+	top_elem = *stack, bottom_elem = *stack; 
 
 	if (top_elem == NULL || top_elem->next == NULL)
 		return;
