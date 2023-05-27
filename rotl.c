@@ -9,8 +9,14 @@
 
 void rotl(stack_t **stack)
 {
-	stack_t *top_elem = *stack, *temp_elem;
-	stack_t *second_elem = top_elem->next;
+	stack_t *top_elem, *temp_elem, *second_elem;
+	
+	if (*stack == NULL)
+		return;
+
+	top_elem = *stack;
+	second_elem = top_elem->next;
+
 
 	while (top_elem != NULL && top_elem->next != NULL)
 	{
