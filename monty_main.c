@@ -107,8 +107,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		}
 		line_number++;
 	}
-	free_the_stack(&stack);
 	fclose(file_pointer);
+	free_the_stack(&stack);
 	return (0);
 }
 /**
