@@ -135,7 +135,6 @@ void push_func(stack_t **stack, int elem_value, int format, int line_number)
 	if (new_stack_elem == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		free_the_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 	new_stack_elem->n = elem_value;
