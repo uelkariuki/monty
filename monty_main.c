@@ -47,14 +47,12 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 				if (args == NULL)
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
-					free_the_stack(&stack);
 					exit(EXIT_FAILURE);
 				}
 				elem_value = strtol(args, &end_ln, 10);
 				if (*end_ln != '\0')
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
-					free_the_stack(&stack);
 					exit(EXIT_FAILURE);
 				}
 				push_func(&stack, (int)elem_value, format, line_number);
