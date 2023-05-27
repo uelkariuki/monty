@@ -17,7 +17,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	FILE *file_pointer = fopen(argv[1], "r");
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1, format = STACK_FORMAT;
-	char *opcode,*args, *end_ln;
+	char *opcode, *args, *end_ln;
 	long elem_value;
 
 	if (argc != 2)
@@ -35,7 +35,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		opcode = strtok(the_instruction, " \t\n");
 		args = strtok(NULL, " \t\n");
 
-		if  ( opcode == NULL || opcode[0] == '#')
+		if  (opcode == NULL || opcode[0] == '#')
 		{
 			line_number++;
 			continue;
@@ -113,10 +113,15 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 /**
  * push_func - opcode function that pushes an element to the stack.
  * @stack: pointer to a pointer to a stack
+ * @elem_value: the value of the element in the stack
+ * @format: the format (mode) to be switched to, that is
+ * between the stack format and the queue format
+ * @argc: the number of command line arguments
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int elem_value, int format, int argc, int line_number)
+void push_func(stack_t **stack, int elem_value, int format,
+		int argc, int line_number)
 {
 	stack_t *new_stack_elem, *rear_elem;
 
@@ -138,13 +143,12 @@ void push_func(stack_t **stack, int elem_value, int format, int argc, int line_n
 	new_stack_elem->prev = NULL;
 	new_stack_elem->next = NULL;
 
-
 	if (format == STACK_FORMAT)
 	{
 		if (*stack != NULL)
 		{
-			 new_stack_elem->next = *stack;
-			 (*stack)->prev = new_stack_elem;
+			new_stack_elem->next = *stack;
+			(*stack)->prev = new_stack_elem;
 		}
 		*stack = new_stack_elem;
 	}
@@ -159,7 +163,7 @@ void push_func(stack_t **stack, int elem_value, int format, int argc, int line_n
 			rear_elem = *stack;
 			while (rear_elem->next != NULL)
 			{
-				rear_elem = rear_elem->next; 
+				rear_elem = rear_elem->next;
 			}
 			rear_elem->next = new_stack_elem;
 			new_stack_elem->prev = rear_elem;
@@ -195,6 +199,7 @@ void pall_func(stack_t **stack)
  * pint- The opcode pint prints the value at the top of the
  * stack, followed by a new line.
  * @stack: pointer to a pointer to the stack
+ * @line_number: line number of opcode in the file
  */
 
 void pint(stack_t **stack, unsigned int line_number)
@@ -216,7 +221,6 @@ void pint(stack_t **stack, unsigned int line_number)
 
 /**
  * nop- The opcode nop doesn’t do anything.
- * @stack: pointer to a pointer to the stack
  */
 
 void nop(void)

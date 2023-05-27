@@ -9,15 +9,13 @@
 
 void sub(stack_t **stack, unsigned int line_number)
 {
-                stack_t *top_of_stck = *stack;
+	stack_t *top_of_stck = *stack;
 
-                if (top_of_stck == NULL || top_of_stck->next == NULL)
-                {
-                        fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
-                        exit(EXIT_FAILURE);
-                }
-
-                top_of_stck->next->n = top_of_stck->next->n - top_of_stck->n;
-                
-		pop(stack, line_number);
+	if (top_of_stck == NULL || top_of_stck->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	top_of_stck->next->n = top_of_stck->next->n - top_of_stck->n;
+	pop(stack, line_number);
 }

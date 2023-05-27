@@ -10,7 +10,7 @@
 void rotl(stack_t **stack)
 {
 	stack_t *top_elem, *temp_elem, *second_elem;
-	
+
 	if (*stack == NULL)
 		return;
 

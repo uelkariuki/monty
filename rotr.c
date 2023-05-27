@@ -8,15 +8,14 @@
 
 void rotr(stack_t **stack)
 {
-        stack_t *top_elem, *bottom_elem;
+	stack_t *top_elem, *bottom_elem;
 
 	if (*stack == NULL || (*stack)->next == NULL)
 		return;
 
-	top_elem = *stack, bottom_elem = *stack; 
+	top_elem = *stack, bottom_elem = *stack;
 
-
-	while( bottom_elem->next != NULL)
+	while (bottom_elem->next != NULL)
 	{
 		top_elem = bottom_elem;
 		bottom_elem = bottom_elem->next;
@@ -27,6 +26,5 @@ void rotr(stack_t **stack)
 	bottom_elem->next = *stack;
 	(*stack)->prev = bottom_elem;
 	*stack = bottom_elem;
-	
 
 }
