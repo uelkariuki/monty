@@ -51,7 +51,17 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-				push_func(&stack, (int)elem_value);
+				push_func(&stack, (int)elem_value, format, argc, line_number);
+			}
+
+			else if (strcmp(opcode, "stack") == 0)
+			{
+				format = STACK_FORMAT;
+
+			}
+			else if (strcmp(opcode, "queue") == 0)
+			{
+				format = QUEUE_FORMAT;
 			}
 			else if (strcmp(opcode, "pall") == 0)
 				pall_func(&stack);
@@ -105,9 +115,15 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int elem_value)
+void push_func(stack_t **stack, int elem_value, int format, int argc, int line_number)
 {
-	stack_t *new_stack_elem;
+	stack_t *new_stack_elem, *rear_elem;
+
+	if (elem_value <= 0)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
 	new_stack_elem = (stack_t *)malloc(sizeof(stack_t));
 
