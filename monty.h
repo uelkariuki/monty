@@ -44,6 +44,8 @@ extern stack_t *stack;
 
 void push_func(stack_t **stack, int elem_value,
 		int format, int argc, int line_number);
+void run_push(char *args, int line_number, int format,
+		int argc);
 void pall_func(stack_t **stack);
 void pint(stack_t **stack, unsigned int line_number);
 void nop(void);
@@ -59,5 +61,6 @@ void pstr(stack_t **stack);
 void rotl(stack_t **stack);
 void rotr(stack_t **stack);
 void free_the_stack(stack_t **stack);
+void run_opcode(stack_t **stack, char *opcode, int line_number);
 
 #endif /* MONTY_H */

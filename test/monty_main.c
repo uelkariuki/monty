@@ -17,7 +17,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	FILE *file_pointer = fopen(argv[1], "r");
 	char the_instruction[MAX_LEN_INSTRUCTION];
 	int line_number = 1, format = STACK_FORMAT;
-	char *opcode, *args;
+	char *opcode, *args, *end_ln;
+	long elem_value;
 
 	if (argc != 2)
 	{
@@ -33,6 +34,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	{
 		opcode = strtok(the_instruction, " \t\n");
 		args = strtok(NULL, " \t\n");
+
 		if  (opcode == NULL || opcode[0] == '#')
 		{
 			line_number++;
@@ -41,13 +43,61 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		if (opcode != NULL)
 		{
 			if (strcmp(opcode, "push") == 0)
-				run_push(args, line_number, format, argc);
+			{
+				if (args == NULL)
+				{
+					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					free_the_stack(&stack);
+					exit(EXIT_FAILURE);
+				}
+				elem_value = strtol(args, &end_ln, 10);
+				if (*end_ln != '\0')
+				{
+					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
+				push_func(&stack, (int)elem_value, format, argc, line_number);
+			}
+
 			else if (strcmp(opcode, "stack") == 0)
 				format = STACK_FORMAT;
 			else if (strcmp(opcode, "queue") == 0)
 				format = QUEUE_FORMAT;
+			else if (strcmp(opcode, "pall") == 0)
+				pall_func(&stack);
+			else if (strcmp(opcode, "pint") == 0)
+				pint(&stack, line_number);
+			else if (strcmp(opcode, "nop") == 0)
+				nop();
+			else if (strcmp(opcode, "pop") == 0)
+				pop(&stack, line_number);
+			else if (strcmp(opcode, "swap") == 0)
+				swap(&stack, line_number);
+			else if (strcmp(opcode, "add") == 0)
+				add(&stack, line_number);
+			else if (strcmp(opcode, "sub") == 0)
+				sub(&stack, line_number);
+			else if (strcmp(opcode, "div") == 0)
+				div_func(&stack, line_number);
+			else if (strcmp(opcode, "mul") == 0)
+				mul(&stack, line_number);
+			else if (strcmp(opcode, "mod") == 0)
+				mod(&stack, line_number);
+			else if (strcmp(opcode, "pchar") == 0)
+				pchar(&stack, line_number);
+			else if (strcmp(opcode, "pstr") == 0)
+				pstr(&stack);
+			else if (strcmp(opcode, "rotl") == 0)
+				rotl(&stack);
+			else if (strcmp(opcode, "rotr") == 0)
+				rotr(&stack);
+
 			else
-				run_opcode(&stack, opcode, line_number);
+			{
+				fprintf(stderr, "L%d: unknown instruction %s\n",
+						line_number, opcode);
+				exit(EXIT_FAILURE);
+			}
 		}
 		line_number++;
 	}
