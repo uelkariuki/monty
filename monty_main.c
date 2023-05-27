@@ -122,7 +122,6 @@ void push_func(stack_t **stack, int elem_value, int format, int line_number)
 	if (elem_value <= 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		free_the_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 
