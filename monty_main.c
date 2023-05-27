@@ -36,9 +36,8 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 		opcode = strtok(the_instruction, " \t\n");
 		args = strtok(NULL, " \t\n");
 
-		if  ( opcode == NULL || opcode[0] == '#')
+		if  (opcode[0] == '#')
 		{
-			line_number++;
 			continue;
 		}
 		if (opcode != NULL)
@@ -56,7 +55,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-				push_func(&stack, (int)elem_value, format, line_number);
+				push_func(&stack, (int)elem_value, format, argc, line_number);
 			}
 
 			else if (strcmp(opcode, "stack") == 0)
@@ -121,11 +120,11 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
  * @line_number:line number in the file
  */
 
-void push_func(stack_t **stack, int elem_value, int format, int line_number)
+void push_func(stack_t **stack, int elem_value, int format, int argc, int line_number)
 {
 	stack_t *new_stack_elem, *rear_elem;
 
-	if (elem_value <= 0)
+	if (argc <= 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
